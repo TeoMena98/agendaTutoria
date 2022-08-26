@@ -28,6 +28,7 @@ class CreateAppointmentsTable extends Migration
             // fk patient
             $table->unsignedInteger('patient_id');
             $table->foreign('patient_id')->references('id')->on('users');
+          
 
             $table->date('scheduled_date');
             $table->time('scheduled_time');

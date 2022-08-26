@@ -11,7 +11,7 @@ class SpecialtyController extends Controller
 {
     public function doctors(Specialty $specialty){
         
-        // estamos diciendo que apartir de la especilidad nos traiga los medicos asociados o relacionados
+        // estamos diciendo que apartir de la especilidad nos traiga los tutores asociados o relacionados
         // y con el builder get() le decirmos que nos traiga dos datos en especifico lo que viene siendo de la tabla users su id (user.id) 
         // y de la tabla users el name (users.name)
         return $specialty->users()->get([

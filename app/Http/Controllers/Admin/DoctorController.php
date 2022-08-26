@@ -66,7 +66,7 @@ class DoctorController extends Controller
                 'password' => bcrypt($request->input('password'))
             ]
         );
-        // asociamos especialidades al medico, attach se encarga de hacer relaciones segun lo que se le envie en el argumento de attach.
+        // asociamos especialidades al tutor, attach se encarga de hacer relaciones segun lo que se le envie en el argumento de attach.
         // por eso dentro de attach enviamos el arreglo de las especialidades para que se guarden en la relación con el médico.
         $user->specialties()->attach($request->input('specialties'));
 
