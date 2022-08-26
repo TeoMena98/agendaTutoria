@@ -3,12 +3,11 @@
     <table class="table align-items-center table-flush">
         <thead class="thead-light">
             <tr>
-                <th scope="col">Descripción</th>
-                <th scope="col">Especialidad</th>
+                <th scope="col">Materia</th>
                 @if ($role == 'patient')
-                <th scope="col">Médico</th>
+                <th scope="col">Tutor</th>
                 @elseif ($role == 'doctor')
-                <th scope="col">Paciente</th>
+                <th scope="col">Estudiante</th>
                 @endif
                 <th scope="col">Fecha</th>
                 <th scope="col">Hora</th>
@@ -19,9 +18,7 @@
         <tbody>
             @foreach ($confirmedAppointments as $appointment)
             <tr>
-                <th scope="row">
-                    {{ $appointment->description }}
-                </th>
+              
                 <td>
                     {{ $appointment->specialty->name }}
                 </td>

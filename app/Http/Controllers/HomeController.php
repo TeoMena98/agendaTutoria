@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Poll;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,22 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $conteo= null;
+        $polls = Poll::all();
+        foreach ($polls as $polls){
+            $conteo= $polls -> user_id;
+        }
+         // dd($conteo);
+        
+if($conteo == null){
+    return redirect('/polls/create');
+       
+    }else{
+        return view('home', compact('polls')) ;
     }
+
+
+   
+ }
 }
+ 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Specialty;
+use App\University;
+use App\Careers;
 use App\Appointment;
 use App\CancelledAppointment;
 use Carbon\Carbon;
@@ -61,39 +63,57 @@ class AppointmentController extends Controller
 
     public function create(ScheduleServiceInterface $scheduleService){
         $specialties = Specialty::all();
+        $careers = Careers::all();
+        $universitys = University::all();
+        // $specialty = Specialty::all();
+        // $universitys = University::all();
+        $specialtyId = 1;
+        // $specialty = Specialty::find($specialtyId);
+        // dd($specialty);
 
-        $specialtyId = old('specialty_id');
-        if($specialtyId){
+        
+         if($specialtyId){
             $specialty = Specialty::find($specialtyId);
             $doctors = $specialty->users;
+            //  dd($specialty->users);
         }else{
             $doctors = collect();
         }
 
+        // $careersId = old('careers_id');
+        // if($careersId){
+        //     $careers = Careers::find($careersId);
+        //     $doctors = $careers->users;
+        // }else{
+        //     $doctors = collect();
+        // }
+
         $date = old('scheduled_date');
-        $doctorId = old('doctor_id');
+        $doctorId = 2;
         if($date && $doctorId){
             $intervals = $scheduleService->getAvailableIntervals($date, $doctorId);
         }else{
             $intervals = null;
         }
 
-        return view('appointments.create', compact('specialties', 'doctors', 'intervals'));
+        return view('appointments.create', compact('specialties', 'careers','universitys', 'doctors', 'intervals'));
 
     } 
 
     public function store(Request $request, ScheduleServiceInterface $scheduleService){
 
         $rules = [
-            'description' => 'required',
-            'specialty_id' => 'exists:specialties,id',
-            'doctor_id' => 'exists:users,id',
+        
+             'specialty_id' => 'exists:specialties,id',
+             'doctor_id' => 'exists:users,id',
+             'careers_id' => 'exists:careers,id',
+             'university_id' => 'exists:universities,id',
             'scheduled_time' => 'required'
         ];
         $messages = [
-            'scheduled_time.required' => 'Por favor seleccione una hora válida para su cita.'
+            'scheduled_time.required' => 'Por favor seleccione una hora válida para su tutoria.'
         ];
-        //$this->validate($request, $rules, $messages);
+        $this->validate($request, $rules, $messages);
         // cuando usas el validator make se pasa como primer parametro el dato que se quiere dalivar.
         $validator = Validator::make($request->all(), $rules, $messages);
 
@@ -109,7 +129,7 @@ class AppointmentController extends Controller
             
             if(!$scheduleService->isAvailableInterval($date, $doctorId, $start)){
                 $validator->errors()
-                    ->add('available_time', 'La hora seleccionada ya se encuentra reservada por otro paciente.');
+                    ->add('available_time', 'La hora seleccionada ya se encuentra reservada por otro estudiante.');
             }
         });
 
@@ -119,24 +139,45 @@ class AppointmentController extends Controller
                 ->withInput();
         }
 
-        $data = $request->only([
-            'description',
-            'specialty_id',
-            'doctor_id',
-            'scheduled_date',
-            'scheduled_time',
-            'type'
-        ]);
-        $data['patient_id'] = auth()->id();
+        // $data = $request->only([
+        //      'specialty_id',
+        //      'university_id',
+        //      'doctor_id',
+        //      'careers_id',
+        //     'scheduled_date',
+        //     'scheduled_time',
+        //     'type'
+        // ]);
+        //  $data['patient_id'] = auth()->id();
+        //  $data['type'] = "individual";
 
-        // dar formato al valor que viene del formulario
-        $carbonTime = Carbon::createFromFormat('g:i A', $data['scheduled_time']);
-        $data['scheduled_time'] = $carbonTime->format('H:i:s');
+        // // dar formato al valor que viene del formulario
+         
+// dd($data);
+// $appointment = new Appointment();
+//     $appointment->save($data);
 
-        Appointment::create($data);
+//         $notification = 'La tutoria se ha registrado correctamente';
+//         return back()->with(compact('notification'));
 
-        $notification = 'La cita se ha registrado correctamente';
-        return back()->with(compact('notification'));
+        // $this->performValidation($request);
+
+        $appointment = new Appointment();
+        $appointment->specialty_id = $request->input('specialty_id');
+        $appointment->doctor_id = $request->input('doctor_id');
+        $appointment->patient_id = auth()->id();
+        $appointment->university_id = $request->input('university_id');
+        $appointment->careers_id = $request->input('careers_id');
+        $appointment->scheduled_date = $request->input('scheduled_date');
+        $appointment->scheduled_time = $request->input('scheduled_time');
+        $appointment->type = "Individual";
+        $carbonTime = Carbon::createFromFormat('g:i A', $appointment->scheduled_time);
+        $appointment->scheduled_time = $carbonTime->format('H:i:s');
+         
+        $appointment->save(); // INSERT
+ 
+        $notification = 'La tutoria se ha registrado correctamente';
+            return back()->with(compact('notification'));
     }
 
     public function showCancelForm(Appointment $appointment)
@@ -154,7 +195,7 @@ class AppointmentController extends Controller
         if($request->has('justification')){
             $cancellation = new CancelledAppointment();
             $cancellation->justification = $request->input('justification');
-            $cancellation->cancelled_by = auth()->id();
+            $cancellation->cancelled_by_id = auth()->id();
 
             $appointment->cancellation()->save($cancellation);
         }
@@ -162,7 +203,7 @@ class AppointmentController extends Controller
         $appointment->status = 'Cancelada';
         $appointment->save(); // update
 
-        $notification = 'La cita se ha cancelado correctamente';
+        $notification = 'La tutoria se ha cancelado correctamente';
         return redirect('/appointments')->with(compact('notification'));
 
     }
@@ -173,7 +214,7 @@ class AppointmentController extends Controller
         $appointment->status = 'Confirmada';
         $appointment->save(); // update
 
-        $notification = 'La cita se ha confirmado correctamente';
+        $notification = 'La tutoria se ha confirmado correctamente';
         return redirect('/appointments')->with(compact('notification'));
 
     }

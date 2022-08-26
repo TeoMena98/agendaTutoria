@@ -35,8 +35,37 @@ Route::middleware(['auth', 'admin'])->namespace('Admin')->group(function () {
     Route::put('/specialties/{specialty}', 'SpecialtyController@update');
     Route::delete('/specialties/{specialty}', 'SpecialtyController@destroy');
 
+
+       // Carreras
+       Route::get('/careers', 'CareersController@index');
+       Route::get('/careers/create', 'CareersController@create');  // esta peticion devuelve una vista del formulario registro
+       Route::get('/careers/{careers}/edit', 'CareersController@edit');
+   
+       Route::post('/careers', 'CareersController@store'); // hacer envio formulario de registro
+       Route::put('/careers/{careers}', 'CareersController@update');
+       Route::delete('/careers/{careers}', 'CareersController@destroy');
+
+
+
+       // Unversidades
+       Route::get('/universitys', 'UniversityController@index');
+       Route::get('/universitys/create', 'UniversityController@create');  // esta peticion devuelve una vista del formulario registro
+       Route::get('/universitys/{university}/edit', 'UniversityController@edit');
+   
+       Route::post('/universitys', 'UniversityController@store'); // hacer envio formulario de registro
+       Route::put('/universitys/{university}', 'UniversityController@update');
+       Route::delete('/universitys/{university}', 'UniversityController@destroy');
+
+
     // Medicos
     Route::resource('doctors', 'DoctorController');
+
+   //encuestas
+    Route::resource('polls', 'PollController');
+    Route::get('/polls', 'PollController@index');
+    Route::get('/polls/create', 'PollController@create');  
+    Route::post('/polls', 'PollController@store'); // hacer envio formulario de registro
+
 
     // Pacientes
     Route::resource('patients', 'PatientController');

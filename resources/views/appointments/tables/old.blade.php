@@ -3,7 +3,7 @@
     <table class="table align-items-center table-flush">
         <thead class="thead-light">
             <tr>
-                <th scope="col">Especialidad</th>
+                <th scope="col">Materia</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Hora</th>
                 <th scope="col">Estado</th>

@@ -3,12 +3,11 @@
     <table class="table align-items-center table-flush">
       <thead class="thead-light">
         <tr>
-          <th scope="col">Descripción</th>
-          <th scope="col">Especialidad</th>
+          <th scope="col">Materia</th>
           @if ($role == 'patient')
-            <th scope="col">Médico</th>
+            <th scope="col">Tutor</th>
           @elseif ($role == 'doctor')
-            <th scope="col">Paciente</th>
+            <th scope="col">Estudiante</th>
           @endif
           <th scope="col">Fecha</th>
           <th scope="col">Hora</th>
@@ -19,9 +18,6 @@
       <tbody>
         @foreach ($pendingAppointments as $appointment)
         <tr>
-          <th scope="row">
-            {{ $appointment->description }}
-          </th>
           <td>
             {{ $appointment->specialty->name }}
           </td>
@@ -50,24 +46,22 @@
                   Ver
               </a>
             @endif
-            @if ($role == 'doctor' || $role == 'admin')
+            
               <form action="{{ url('/appointments/'.$appointment->id.'/confirm')}}" method="POST" class="d-inline-block">
                 @csrf
-                <button class="btn btn-sm btn-success" type="submit" data-toggle="tooltip" title="Confirmar cita">
+                <button class="btn btn-sm btn-success" type="submit" data-toggle="tooltip" title="Confirmar tutoria">
                   <i class="ni ni-check-bold"></i>
                 </button>
               </form>
-              <a href="{{ url('/appointments/'.$appointment->id.'/cancel')}}" class="btn btn-sm btn-danger">
-                <i class="ni ni-fat-delete"></i>
-              </a>
-            @else {{-- patient --}}
+             
+          
               <form action="{{ url('/appointments/'.$appointment->id.'/cancel')}}" method="POST" class="d-inline-block">
                 @csrf
                 <button class="btn btn-sm btn-danger" type="submit" data-toggle="tooltip" title="Cancelar cita">
                   <i class="ni ni-fat-delete"></i>
                 </button>
               </form>
-            @endif
+            
            
           </td>
         </tr>

@@ -7,7 +7,7 @@
   <div class="card-header border-0">
     <div class="row align-items-center">
       <div class="col">
-        <h3 class="mb-0">Cancelar cita</h3>
+        <h3 class="mb-0">Cancelar tutoria</h3>
       </div>
     </div>
   </div>
@@ -21,22 +21,22 @@
 
     @if($role == 'patient')
       <p>
-        Estas apunto de cancelar tu cita reservada con el médico {{  $appointment->doctor->name }}
-          (especialidad {{ $appointment->specialty->name}})
+        Estas apunto de cancelar tu tutoria reservada con el Tutor: {{  $appointment->doctor->name }}
+          (Materia {{ $appointment->specialty->name}})
           para el día {{ $appointment->scheduled_date }}
       </p>
     @elseif($role == 'doctor')
       <p>
-        Estas apunto de cancelar tu cita con el paciente {{  $appointment->patient->name }}
-          (especialidad {{ $appointment->specialty->name}})
+        Estas apunto de cancelar tu Tutoria con el Estudiante: {{  $appointment->patient->name }}
+          (Materia {{ $appointment->specialty->name}})
           para el día {{ $appointment->scheduled_date }}
           (hora {{ $appointment->scheduled_time_12 }})
       </p>
     @else
       <p>
-        Estas apunto de cancelar la cita reservada por el paciente {{  $appointment->patient->name }}
-         para ser atendida por el médico {{  $appointment->doctor->name }}
-          (especialidad {{ $appointment->specialty->name}})
+        Estas apunto de cancelar la tutoria reservada por el Estudiante: {{  $appointment->patient->name }}
+         para ser atendida por el tutor {{  $appointment->doctor->name }}
+          (Materia {{ $appointment->specialty->name}})
           para el día {{ $appointment->scheduled_date }}
           (hora {{ $appointment->scheduled_time_12 }})
       </p>
@@ -51,7 +51,7 @@
             </textarea>
         </div>
 
-        <button class="btn btn-danger" type="submit">Cancelar cita</button>
+        <button class="btn btn-danger" type="submit">Cancelar tutoria</button>
         <a href="{{ url('/appointments') }}" class="btn btn-default">
             Volver al listado de Tutorias sin cancelar
         </a>

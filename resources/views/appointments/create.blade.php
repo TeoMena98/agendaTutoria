@@ -6,7 +6,7 @@
   <div class="card-header border-0">
     <div class="row align-items-center">
       <div class="col">
-        <h3 class="mb-0">Registrar nueva Tutoria</h3>
+        <h3 class="mb-0">Registrar nueva Tutoria individual</h3>
       </div>
       <div class="col text-right">
         <a href="{{ url('patients') }}" class="btn btn-sm btn-default">Cancelar y Volver</a>
@@ -27,34 +27,57 @@
     <form action="{{ url('appointments') }}" method="post">
         @csrf
 
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="description">Descripción</label>
         <input name="description" value="{{ old('description')}}" id="description" type="text" class="form-control" placeholder="Describe brevemente la consulta" required>
-        </div>
+        </div> -->
 
         
         <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="name">Especialidad</label>
+        <div class="form-group col-md-3">
+                <label for="name">Universidad</label>
+                <select name="university_id" id="university" class="form-control" required>
+                    <option value="">Seleccionar Universidad</option>
+                    @foreach ($universitys as $university)
+                        <option value="{{ $university->id }} @if(old('university_id') == $university->id) selected @endif">
+                            {{ $university->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="name">Carrera</label>
+                <select name="careers_id" id="careers" class="form-control" required>
+                    <option value="">Seleccionar Carrera</option>
+                    @foreach ($careers as $careers)
+                        <option value="{{ $careers->id }} @if(old('careers_id') == $careers->id) selected @endif">
+                            {{ $careers->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="email">Materia</label>
                 <select name="specialty_id" id="specialty" class="form-control" required>
-                    <option value="">Seleccionar especialidad</option>
-                    @foreach ($specialties as $specialty)
+                <option value="">Seleccionar Materia</option>   
+                @foreach ($specialties as $specialty)
                         <option value="{{ $specialty->id }} @if(old('specialty_id') == $specialty->id) selected @endif">
                             {{ $specialty->name }}
                         </option>
                     @endforeach
                 </select>
             </div>
-            <div class="form-group col-md-6">
-                <label for="email">Médico</label>
+            <div class="form-group col-md-3">
+                <label for="email">Tutor</label>
                 <select name="doctor_id" id="doctor" class="form-control" required>
-                    @foreach ($doctors as $doctor)
+                <option value="">Seleccionar Tutor</option>   
+                @foreach ($doctors as $doctor)
                         <option value="{{ $doctor->id }} @if(old('doctor_id') == $doctor->id) selected @endif">
                             {{ $doctor->name }}
                         </option>
                     @endforeach
                 </select>
-            </div>
+            </div> 
         </div>
         <div class="form-group">
             <label for="dni">Fecha</label>
@@ -96,7 +119,7 @@
                 @endif
             </div>
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="phone">Tipo de Tutoria</label>
             <div class="custom-control custom-radio mb-3">
                 <input name="type" class="custom-control-input" id="type1" checked type="radio"
@@ -112,11 +135,13 @@
                 <input name="type" class="custom-control-input" id="type3"  type="radio"
                     @if(old('type') == 'Operación') checked @endif value="Operación">
                 <label class="custom-control-label" for="type3">Operación</label>
-            </div> -->
-        </div>
-        <button type="submit" class="btn btn-primary">
-            Guardar
+            </div> 
+        </div> -->
+        
+        <button type="submit" class="btn btn-primary btn-lg btn-block">
+            Agendar
         </button>
+       
     </form>
   </div>
 </div>

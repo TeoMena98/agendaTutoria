@@ -6,10 +6,10 @@
   <div class="card-header border-0">
     <div class="row align-items-center">
       <div class="col">
-        <h3 class="mb-0">Médicos</h3>
+        <h3 class="mb-0">Tutor</h3>
       </div>
       <div class="col text-right">
-        <a href="{{ url('doctors/create') }}" class="btn btn-sm btn-success">Nuevo Médico</a>
+        <a href="{{ url('doctors/create') }}" class="btn btn-sm btn-success">Nuevo Tutor</a>
       </div>
     </div>
   </div>
@@ -26,8 +26,8 @@
       <thead class="thead-light">
         <tr>
           <th scope="col">Nombre</th>
-          <th scope="col">Email</th>
-          <th scope="col">DNI</th>
+          <th scope="col">Correo</th>
+          <th scope="col">Documento</th>
           <th scope="col">Opciones</th>
         </tr>
       </thead>

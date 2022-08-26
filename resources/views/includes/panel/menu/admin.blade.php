@@ -9,6 +9,17 @@
     </a>
 </li>
 <li class="nav-item">
+    <a class="nav-link" href="/universitys">
+        <i class="ni ni-planet text-blue"></i> Universidades
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="/careers">
+        <i class="ni ni-planet text-blue"></i> Carreras
+    </a>
+</li>
+
+<li class="nav-item">
     <a class="nav-link" href="/doctors">
         <i class="ni ni-single-02 text-red"></i> Tutor
     </a>

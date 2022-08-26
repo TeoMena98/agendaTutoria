@@ -7,7 +7,7 @@
     <div class="card-header border-0">
         <div class="row align-items-center">
             <div class="col">
-                <h3 class="mb-0">Cita #{{ $appointment->id }}</h3>
+                <h3 class="mb-0">Tutoria #{{ $appointment->id }}</h3>
             </div>
         </div>
     </div>
@@ -22,17 +22,17 @@
 
             @if($role == 'patient' || $role == 'admin')
                 <li>
-                    <strong>Médico:</strong> {{ $appointment->doctor->name}}
+                    <strong>Tutor:</strong> {{ $appointment->doctor->name}}
                 </li>
             @endif
 
             @if($role == 'doctor' || $role == 'admin')
                 <li>
-                    <strong>Paciente:</strong> {{ $appointment->patient->name}}
+                    <strong>Estudiante:</strong> {{ $appointment->patient->name}}
                 </li>
             @endif
             <li>
-                <strong>Especialidad:</strong> {{ $appointment->specialty->name}}
+                <strong>Materia:</strong> {{ $appointment->specialty->name}}
             </li>
             <li>
                 <strong>Tipo:</strong> {{ $appointment->type}}

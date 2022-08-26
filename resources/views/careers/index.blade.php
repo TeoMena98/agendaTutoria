@@ -6,10 +6,10 @@
   <div class="card-header border-0">
     <div class="row align-items-center">
       <div class="col">
-        <h3 class="mb-0">Estudiantes</h3>
+        <h3 class="mb-0">Carreras</h3>
       </div>
       <div class="col text-right">
-        <a href="{{ url('patients/create') }}" class="btn btn-sm btn-success">Nuevo Estudiante</a>
+        <a href="{{ url('careers/create') }}" class="btn btn-sm btn-success">Nueva Carrera</a>
       </div>
     </div>
   </div>
@@ -26,28 +26,24 @@
       <thead class="thead-light">
         <tr>
           <th scope="col">Nombre</th>
-          <th scope="col">Correo</th>
-          <th scope="col">Documento</th>
+          <th scope="col">Descripción</th>
           <th scope="col">Opciones</th>
         </tr>
       </thead>
       <tbody>
-        @foreach ($patients as $patient)
+        @foreach ($careers as $careers)
           <tr>
             <th scope="row">
-              {{ $patient->name }}
+              {{ $careers->name }}
             </th>
             <td>
-              {{ $patient->email }}
+              {{ $careers->description }}
             </td>
             <td>
-                {{ $patient->dni }}
-            </td>
-            <td>
-              <form action="{{ url('/patients/'.$patient->id)}}" method="POST">
+              <form action="{{ url('/careers/'.$careers->id)}}" method="POST">
                 @csrf
                 @method('DELETE')
-                <a href="{{ url('/patients/'.$patient->id.'/edit')}}" class="btn btn-sm btn-primary">Editar</a>
+                <a href="{{ url('/careers/'.$careers->id.'/edit')}}" class="btn btn-sm btn-primary">Editar</a>
                 <button class="btn btn-sm btn-danger" type="submit" >Eliminar</button>
               </form>
             </td>
@@ -55,9 +51,6 @@
         @endforeach
       </tbody>
     </table>
-  </div>
-  <div class="card-body">
-    {{ $patients->links() }}
   </div>
 </div>
 

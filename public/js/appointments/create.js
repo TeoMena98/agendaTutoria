@@ -2,7 +2,7 @@ let $doctor, $date, $specialty, $hours;
 let iRadio;
 
 const noHoursAlert = `<div class="alert alert-danger" role="alert">
-                <strong>Lo sentimos!</strong> No se encontraron horas disponibles para el médico en el día seleccionado.!
+                <strong>Lo sentimos!</strong> No se encontraron horas disponibles para el tutor en el día seleccionado.!
                </div> `;
 
 $(function() {

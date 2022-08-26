@@ -11,7 +11,7 @@ use Carbon\Carbon;
 class ScheduleController extends Controller
 {
     private $days = [
-        'lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'
+        'lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'
     ];
 
     public function edit(){
